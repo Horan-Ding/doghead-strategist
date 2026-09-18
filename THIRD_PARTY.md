@@ -5,7 +5,7 @@
 | 方向 | 参考项目 | 备注 |
 |------|----------|------|
 | 聊天分析 / 阶段（已 vendored） | [tomwong001/qingsheng-skill](https://github.com/tomwong001/qingsheng-skill) | `.cursor/skills/qingsheng/` |
-| 止损 / 硬价值 / 自诊（部分 reference） | [Mayuqi-crypto/HowToGetAlongWithGirls](https://github.com/Mayuqi-crypto/HowToGetAlongWithGirls) | `goutou-junshi/references/howto/*.md` 仅 7 个文件 |
+| 止损 / 硬价值 / 自诊（部分 reference） | [Mayuqi-crypto/HowToGetAlongWithGirls](https://github.com/Mayuqi-crypto/HowToGetAlongWithGirls) | `goutou-junshi/references/howto/*.md`（8 个文件，含 chat-analysis） |
 | 模拟 / 状态机 | [T1anhu4/Crush-skill](https://github.com/T1anhu4/Crush-skill) | Crush.skill |
 | 长期关系 | [NatalieCao323/partner-skill](https://github.com/NatalieCao323/partner-skill) | 现任.skill |
 | 教练框架 | [Mayuqi-crypto/HowToGetAlongWithGirls](https://github.com/Mayuqi-crypto/HowToGetAlongWithGirls) | 结构化教练 |
