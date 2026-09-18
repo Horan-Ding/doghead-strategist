@@ -1,0 +1,10 @@
+# data/config.yaml — 本机配置，不进 Git
+data_version: 1
+default_person: null
+stages:
+  - attraction
+  - flat
+  - ambiguous
+  - dating
+  - partner
+  - ended

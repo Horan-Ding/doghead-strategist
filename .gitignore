@@ -1,5 +1,5 @@
-# Local private data (chats, people, state) — never commit
-data/
+# Local private data at repo root only (chats, people, state) — never commit
+/data/
 
 # Optional global-style data symlink target
 .goutou/
