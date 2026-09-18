@@ -11,7 +11,14 @@ cp .env.example .env
 ./scripts/init-local-data.sh
 ```
 
-在 Cursor 中通过 `@goutou-junshi` 或 `/goutou-junshi` 调用 Skill。分析具体对象时，请指明代号（如 `demo-alice`），或设置 `GOUTOU_ACTIVE_PERSON`。
+在 Cursor 中：
+
+- **`@goutou-junshi`** — 咱们总入口（档案 + 状态 + 何时止损）
+- **`@qingsheng`** — 情圣战术（已安装在 `.cursor/skills/qingsheng/`）
+
+HowTo 恋爱教练库只做**部分集成**（7 个 reference 文件，无第二个主 Skill），路由说明见 [docs/skill-routing.md](docs/skill-routing.md)。
+
+分析具体对象时请指明代号（如 `demo-alice`），或设置 `GOUTOU_ACTIVE_PERSON`。
 
 ## 本机数据布局（`data/`，不进 Git）
 
