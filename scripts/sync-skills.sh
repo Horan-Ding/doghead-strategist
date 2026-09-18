@@ -17,7 +17,7 @@ git clone --depth 1 https://github.com/Mayuqi-crypto/HowToGetAlongWithGirls.git 
 HOWTO_REF="$TMP/howto/.claude/skills/dating-coach/references"
 DEST="$ROOT/.cursor/skills/goutou-junshi/references/howto"
 mkdir -p "$DEST"
-for f in damage-control.md hard-value-reality.md self-diagnosis.md signal-patterns.md realistic-scenarios.md lifecycle.md profile-template.md; do
+for f in chat-analysis.md damage-control.md hard-value-reality.md self-diagnosis.md signal-patterns.md realistic-scenarios.md lifecycle.md profile-template.md; do
   cp "$HOWTO_REF/$f" "$DEST/"
 done
 # Keep our README attribution

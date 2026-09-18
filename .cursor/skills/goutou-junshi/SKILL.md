@@ -28,7 +28,8 @@ description: 狗头军师——恋爱与关系总参谋（咱们自研入口）�
 
 | 场景 | 动作 |
 |------|------|
-| 粘贴聊天 / 截图 / 「怎么回」「推进」「展示面」「挽回」「自动规划」 | 读取并遵循 **`.cursor/skills/qingsheng/SKILL.md`**（可 `@qingsheng`）。把 `meta`/`state`/最近聊天作为上下文喂给情圣流程。 |
+| 粘贴聊天 / 截图 / 「帮我看这段」「分析对话」 | **先**读 `references/howto/chat-analysis.md` 走完 SOP（档案→阶段→逐条信号→揪错）；**再**读 **`.cursor/skills/qingsheng/SKILL.md`** 出话术。上下文用 `meta`/`state`/最近聊天或用户粘贴内容。 |
+| 「怎么回」「推进」「展示面」「挽回」「自动规划」（无完整分析需求） | 读取并遵循 **`.cursor/skills/qingsheng/SKILL.md`**（可 `@qingsheng`）。把 `meta`/`state`/最近聊天作为上下文喂给情圣流程。 |
 | 止损、没戏、越聊越冷、纠缠、**该不该放弃**；或 `stoploss_level >= 2` | **先**读 `references/howto/damage-control.md`，结论优先于撩拨话术；再视情况用情圣给「体面收尾一句」 |
 | 配不配、段位、硬价值、话术能不能逆天改命 | **先**读 `references/howto/hard-value-reality.md`，再建议 |
 | 我哪里不行、形象/习惯自评 | 读 `references/howto/self-diagnosis.md` |

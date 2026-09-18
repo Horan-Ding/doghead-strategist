@@ -11,7 +11,7 @@
 
 | 做法 | 说明 |
 |------|------|
-| ✅ 做了 | 只复制 7 个 `references/*.md` 到 `goutou-junshi/references/howto/` |
+| ✅ 做了 | 复制 8 个 `references/*.md` 到 `goutou-junshi/references/howto/`（含 `chat-analysis.md` 分析 SOP） |
 | ❌ 没做 | 不安装第二个主 Skill `dating-coach/SKILL.md`（会和情圣重复触发） |
 | ❌ 没做 | 不复制 `knowledge-base.md` 全文（体量大，与情圣 references 重叠高） |
 
