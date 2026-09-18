@@ -1,6 +1,8 @@
 # 狗头军师 (goutou-junshi)
 
-开源的是**策略引擎与数据约定**，不是你的聊天记录。真实对象、对话与状态只留在本机 `data/`（已 gitignore）。
+开源的是**策略引擎与数据约定**，不是你的聊天记录。真实数据放在 **`GOUTOU_DATA_DIR`**（默认仓库旁 `./data/`，已 gitignore）；建议指到 **iCloud 等同步目录**，换机不费劲。见 [docs/private-data-and-sync.md](docs/private-data-and-sync.md)。
+
+推 GitHub 请用 **Horan-Ding 专用 SSH**，勿用本机 fenglibin 的 key：见 [docs/github-ssh-horan-ding.md](docs/github-ssh-horan-ding.md)。
 
 ## 快速开始
 
