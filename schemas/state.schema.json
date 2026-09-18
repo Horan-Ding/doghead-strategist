@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/goutou-junshi/schemas/state.schema.json",
+  "title": "PersonState",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "updated_at", "stage"],
+  "properties": {
+    "version": { "type": "integer", "minimum": 1 },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "stage": {
+      "type": "string",
+      "enum": ["attraction", "flat", "ambiguous", "dating", "partner", "ended"]
+    },
+    "stage_confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "interest": { "type": "number", "minimum": 0, "maximum": 100 },
+        "neediness_risk": { "type": "number", "minimum": 0, "maximum": 100 },
+        "last_initiative": { "type": "string", "enum": ["me", "them", "balanced", "unknown"] }
+      }
+    },
+    "timeline": {
+      "type": "object",
+      "properties": {
+        "last_contact": { "type": "string", "format": "date" },
+        "next_suggested_action": { "type": "string" }
+      }
+    },
+    "open_threads": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "summary"],
+        "properties": {
+          "id": { "type": "string" },
+          "summary": { "type": "string" }
+        }
+      }
+    },
+    "flags": {
+      "type": "object",
+      "properties": {
+        "stoploss_level": { "type": "integer", "minimum": 0, "maximum": 3 }
+      }
+    },
+    "notes": { "type": "string" }
+  }
+}

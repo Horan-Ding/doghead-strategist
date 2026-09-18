@@ -1,0 +1,5 @@
+codename: demo-alice
+platform: wechat
+known_since: 2026-06-01
+tags: [慢热, 同城, 虚构示例]
+boundaries_notes: 示例数据，仅供演示 Skill 读取路径与 schema。

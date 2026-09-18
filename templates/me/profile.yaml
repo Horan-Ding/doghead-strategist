@@ -1,0 +1,10 @@
+# 你的自我画像（仅本机 data/me/profile.yaml）
+display_codename: me
+goals:
+  - 示例：稳定推进一段关系，避免需求感过高
+strengths: []
+growth_areas: []
+platforms: [wechat]
+privacy:
+  allow_store_raw_exports: true
+  redact_before_cloud_paste: true

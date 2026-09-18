@@ -1,0 +1,26 @@
+# Local private data (chats, people, state) — never commit
+data/
+
+# Optional global-style data symlink target
+.goutou/
+
+# Secrets
+.env
+secrets.env
+*.env.local
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Python / Node (if added later)
+__pycache__/
+*.py[cod]
+node_modules/
+.dist/
+
+# Local SQLite / imports
+**/*.sqlite
+**/*.sqlite3

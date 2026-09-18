@@ -1,0 +1,17 @@
+version: 1
+updated_at: 2026-09-18T10:00:00+08:00
+stage: ambiguous
+stage_confidence: 0.65
+metrics:
+  interest: 62
+  neediness_risk: 35
+  last_initiative: them
+timeline:
+  last_contact: 2026-09-17
+  next_suggested_action: 延续轻松话题，不追问未回复的细节
+open_threads:
+  - id: weekend-plan
+    summary: 提到过周末有空，尚未敲定具体安排
+flags:
+  stoploss_level: 0
+notes: 虚构人物，用于开源仓库演示。
