@@ -9,9 +9,9 @@ description: 狗头军师——恋爱与关系总参谋（咱们自研入口）�
 
 ## 数据根目录
 
-1. `GOUTOU_DATA_DIR` 未设置时，用项目根 `./data/`（gitignore）。
+1. 优先读项目根 `.env` 的 `GOUTOU_DATA_DIR` / `GOUTOU_DATA_REPO_URL`。未配置时 `./data/`（gitignore）。**缺 data 或用户要给私有仓地址**：跑 `scripts/ensure-data-repo.sh`；改档案后跑 `scripts/sync-data-repo.sh`。总流程见根目录 `AGENTS.md`。
 2. 当前对象：用户代号、`GOUTOU_ACTIVE_PERSON` 或 `data/config.yaml` 的 `default_person`。
-3. **禁止**把 `data/`、`raw/`、`imports/` 写进可提交文件。
+3. **禁止**把私有 data、`raw/`、`imports/` 写进 **doghead-strategist** 可提交文件；data 只进独立仓。
 
 分析具体对象时读取：
 

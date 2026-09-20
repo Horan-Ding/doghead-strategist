@@ -1,0 +1,16 @@
+# 原始导出与媒体（只同步结构化文本）
+**/conversations/raw/
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.gif
+**/*.webp
+**/*.heic
+
+# 本地库与密钥
+.env
+secrets.env
+**/*.sqlite
+**/*.sqlite3
+
+.DS_Store

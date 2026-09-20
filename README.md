@@ -1,6 +1,6 @@
 # 狗头军师 (goutou-junshi)
 
-开源的是**策略引擎与数据约定**，不是你的聊天记录。真实数据放在 **`GOUTOU_DATA_DIR`**（默认仓库旁 `./data/`，已 gitignore）；建议指到 **iCloud 等同步目录**，换机不费劲。见 [docs/private-data-and-sync.md](docs/private-data-and-sync.md)。
+开源的是**策略引擎与数据约定**，不是你的聊天记录。真实数据放在 **`GOUTOU_DATA_DIR`**（默认仓库旁 `./data/`，已 gitignore）；**推荐**单独 **private Git 仓** + [docs/data-repo-ai-sync.md](docs/data-repo-ai-sync.md)。也可用 iCloud 等，见 [docs/private-data-and-sync.md](docs/private-data-and-sync.md)。
 
 推 GitHub 请用 **Horan-Ding 专用 SSH**，勿用本机 fenglibin 的 key：见 [docs/github-ssh-horan-ding.md](docs/github-ssh-horan-ding.md)。
 
@@ -8,8 +8,10 @@
 
 ```bash
 cp .env.example .env
-./scripts/init-local-data.sh
+./scripts/ensure-data-repo.sh   # clone 私有 goutou-data；仅玩示例可改用 init-local-data.sh
 ```
+
+**Cursor Agent**：换机或 `git pull` 后读 [AGENTS.md](AGENTS.md)，会自动拉私有 data 仓。
 
 在 Cursor 中：
 

@@ -1,13 +1,19 @@
 # 私有 data 放哪、怎么云同步
 
-开源仓库里**永远不要**放真实 `data/`。代码可以 `git clone`，**关系数据**用单独目录 + 云盘/私有同步。
+开源仓库里**永远不要**放真实 `data/`。代码可以 `git clone`，**关系数据**用单独目录同步。
 
 ## 推荐：代码与 data 分离
 
 | 内容 | 放哪 | 同步方式 |
 |------|------|----------|
-| `doghead-strategist` 代码 | 任意目录 `git clone` | GitHub |
-| 狗头军师私有 data | **`GOUTOU_DATA_DIR` 指向的目录** | iCloud / Dropbox / Syncthing / 私有 Git |
+| `doghead-strategist` 代码 | 任意目录 `git clone` | GitHub（可 public） |
+| 狗头军师私有 data | **`GOUTOU_DATA_DIR` → 独立 private Git 仓** | `./scripts/sync-data-repo.sh` + 可选 AI 处理冲突 |
+
+**首选**：独立 data 仓（例如 `Horan-Ding/goutou-data`）——搭建与 AI 定时同步见 [data-repo-ai-sync.md](data-repo-ai-sync.md)。
+
+| 备选 | 同步方式 |
+|------|----------|
+| iCloud / Dropbox / Syncthing | 整目录放在同步盘，仍用 `GOUTOU_DATA_DIR` |
 
 设置方式（任选其一）：
 
@@ -39,7 +45,7 @@ Skill 与脚本优先读 `GOUTOU_DATA_DIR`，未设置时才是仓库旁的 `./d
 
 - **Dropbox / OneDrive / 坚果云**：整目录放在同步盘内，同上设置 `GOUTOU_DATA_DIR`。
 - **Syncthing**：多设备点对点，不经过商业云明文策略时更可控（仍建议见下「加密」）。
-- **私有 Git 仓库**（GitHub private / 自建）：只同步 `data/` 树，与公开 `doghead-strategist` **分开 remote**；提交前用工具检查勿误加 `raw` 大图。不推荐与开源代码混在同一 repo。
+- **私有 Git 仓库**：与 `doghead-strategist` **不同 remote**；仓内根目录即 data 树（不是嵌套 `data/` 子目录）。模板见 `templates/data-repo/`。
 
 ## 安全提醒（聊天记录很敏感）
 
