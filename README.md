@@ -15,10 +15,11 @@ cp .env.example .env
 
 在 Cursor 中：
 
-- **`@goutou-junshi`** — 咱们总入口（档案 + 状态 + 何时止损）
-- **`@qingsheng`** — 情圣战术（已安装在 `.cursor/skills/qingsheng/`）
+- **`@goutou-junshi`** — 总入口（档案、截图入库、状态）
+- **`@qingsheng`** — 情圣：怎么回、怎么推
+- **`@damage-control`** — 止损：还有没有戏、该不该放弃（howto 已集成，见 `.cursor/skills/damage-control/`）
 
-HowTo 恋爱教练库只做**部分集成**（8 个 reference 文件，含 `chat-analysis.md`，无第二个主 Skill），路由说明见 [docs/skill-routing.md](docs/skill-routing.md)。
+HowTo 片段在 `goutou-junshi/references/howto/`（含 `damage-control.md`）；路由见 [docs/skill-routing.md](docs/skill-routing.md)。
 
 分析具体对象时请指明代号（如 `demo-alice`），或设置 `GOUTOU_ACTIVE_PERSON`。
 
@@ -44,7 +45,9 @@ data/
 
 | 路径 | 说明 |
 |------|------|
-| `.cursor/skills/goutou-junshi/` | Cursor Agent Skill |
+| `.cursor/skills/goutou-junshi/` | 狗头军师（总入口） |
+| `.cursor/skills/damage-control/` | 止损（`@damage-control`） |
+| `.cursor/skills/qingsheng/` | 情圣 |
 | `schemas/` | `meta` / `state` / 消息行 JSON Schema |
 | `examples/` | 脱敏演示数据 |
 | `templates/` | 初始化 `data/` 用的模板 |

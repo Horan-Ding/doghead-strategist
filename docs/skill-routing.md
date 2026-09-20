@@ -4,8 +4,11 @@
 
 1. **`goutou-junshi`（咱们自研）** — 唯一「总入口」：读 `GOUTOU_DATA_DIR`、狗头语气、写回 `state.yaml`、决定何时止损。
 2. **`qingsheng`（上游 vendored）** — 战术主力：怎么回、怎么推、平台差异、`/展示面` `/挽回` `/自动` 等。
+3. **`damage-control`（止损）** — 还有没有戏、该不该放弃；读 `goutou-junshi/references/howto/damage-control.md`，写回 `state.flags.stoploss_level`。
 
-用户可以直接 `@qingsheng` 纯聊天；**有代号档案、要记状态**时优先 `@goutou-junshi`。
+用户可以直接 `@qingsheng` 纯聊天；**有代号档案、要记状态**时优先 `@goutou-junshi`；**怀疑没戏、想止损**时用 `@damage-control`（狗头路由也会走同一 howto）。
+
+**现任 / partner-skill**：未安装（见 `THIRD_PARTY.md`），需要长期伴侣顾问时再考虑。
 
 ## 发聊天截图时谁会动（本仓库）
 
