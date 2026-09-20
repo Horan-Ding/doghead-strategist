@@ -2,7 +2,7 @@
 
 开源的是**策略引擎与数据约定**，不是你的聊天记录。真实数据放在 **`GOUTOU_DATA_DIR`**（默认仓库旁 `./data/`，已 gitignore）；**推荐**单独 **private Git 仓** + [docs/data-repo-ai-sync.md](docs/data-repo-ai-sync.md)。也可用 iCloud 等，见 [docs/private-data-and-sync.md](docs/private-data-and-sync.md)。
 
-推 GitHub 请用 **Horan-Ding 专用 SSH**，勿用本机 fenglibin 的 key：见 [docs/github-ssh-horan-ding.md](docs/github-ssh-horan-ding.md)。
+推 GitHub 请用 **Horan-Ding 专用 SSH**，勿与 `Host github.com` 默认密钥混用：见 [docs/github-ssh-horan-ding.md](docs/github-ssh-horan-ding.md)。
 
 ## 快速开始
 

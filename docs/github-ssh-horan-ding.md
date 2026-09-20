@@ -1,8 +1,8 @@
-# Horan-Ding 专用 GitHub SSH（与本机 fenglibin 账号分开）
+# Horan-Ding 专用 GitHub SSH（与默认账号分开）
 
-本机默认 `~/.ssh/id_ed25519` 对应 **fenglibinjie@gmail.com / GitHub aderan**，不能用来推 `Horan-Ding/*`。
+若本机 `~/.ssh/config` 里 `Host github.com` 已绑定**另一个** GitHub 账号的密钥，不要用那条 key 推 `Horan-Ding/*` 仓库。
 
-已为 **Horan-Ding** 单独生成密钥（若不存在）：
+为 **Horan-Ding** 单独生成密钥（若不存在）：
 
 - 私钥：`~/.ssh/id_ed25519_horan_ding`（勿分享、勿提交）
 - 公钥：`~/.ssh/id_ed25519_horan_ding.pub` → 加到 **Horan-Ding** GitHub → Settings → SSH keys
@@ -36,4 +36,4 @@ git remote set-url origin git@github.com-horan-ding:Horan-Ding/doghead-strategis
 git push -u origin main   # 或你的分支名
 ```
 
-`github.com` 仍走 fenglibin 的 key；只有带 `github.com-horan-ding` 的 URL 才用 Horan-Ding 的 key。
+`Host github.com` 仍走默认账号的 key；remote URL 使用 `github.com-horan-ding` 时才会用 Horan-Ding 的 key。
