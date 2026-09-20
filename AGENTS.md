@@ -13,6 +13,7 @@
    用户只提供私有仓 URL 时：写入 `GOUTOU_DATA_REPO_URL`（及可选的 `GOUTOU_DATA_DIR`），再跑上述脚本。
 4. 若用户说「同步数据」「拉档案」「恢复对话记录」，同样先 `ensure-data-repo.sh`，再视需要 `./scripts/sync-data-repo.sh`。
 5. 读写对象档案时只改 **`$GOUTOU_DATA_DIR`** 下文件（`me/`、`people/<codename>/`），**禁止**把真实 data 提交进 `doghead-strategist`。
+6. **截图入库**：append `normalized.jsonl` 前**先读已有行、去重**（同内容不重复写；用户可能把同一张图发给多个模型）。规则见 `.cursor/skills/goutou-junshi/references/howto/screenshot-ingest.md` §2。
 
 SSH 推私有仓失败时，让用户对照 [docs/github-ssh-horan-ding.md](docs/github-ssh-horan-ding.md)（Horan-Ding 账号与 `github.com` / 专用 Host 分离）。
 
