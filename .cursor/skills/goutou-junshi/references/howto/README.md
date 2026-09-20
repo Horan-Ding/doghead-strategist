@@ -6,8 +6,8 @@
 
 | 文件 | 何时由狗头军师加载 |
 |------|-------------------|
-| `screenshot-ingest.md` | **聊天截图**——**最先**：识图、说话人、`normalized.jsonl`、`sync-data-repo.sh` |
-| `chat-analysis.md` | 粘贴文字或入库后的分析 /「帮我看这段」——**先**走完整分析 SOP，再联动情圣出话术 |
+| `screenshot-ingest.md` | **聊天截图第 1 步**：识图、时间、说话人、jsonl、sync；**第 2 步固定情圣出回复**（中间不默认 chat-analysis） |
+| `chat-analysis.md` | 粘贴文字 / 明确要求深度分析时——再走完整分析 SOP，再联动情圣 |
 | `damage-control.md` | 止损、没戏、已读不回、越聊越冷、`state.flags.stoploss_level >= 2` |
 | `hard-value-reality.md` | 问配不配、段位、外貌经济地位、话术能否逆天改命 |
 | `self-diagnosis.md` | 形象/聊天习惯自评、找短板 |

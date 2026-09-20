@@ -13,9 +13,10 @@ Cursor **不会**自动跑脚本；是靠 **Skill 描述 + 路由表** 让 Agent
 
 | 顺序 | Skill / 文档 | 做什么 |
 |------|----------------|--------|
-| 1（建议 `@goutou-junshi` 或默认匹配到狗头） | `goutou-junshi` → `screenshot-ingest.md` | 识图、对齐 `me/them`、追加 `normalized.jsonl`、可选存 `raw/imports/`、`sync-data-repo.sh` |
-| 2 | `goutou-junshi` → `chat-analysis.md` | 阶段、信号、问题 |
-| 3 | `qingsheng` | 具体怎么回（短回复风格） |
+| 1 | `goutou-junshi` → `screenshot-ingest.md` | 识图、大概时间、`me/them`；文字/图/表情包简述 → `normalized.jsonl` → `sync-data-repo.sh` |
+| 2 | **`qingsheng`**（读 `SKILL.md`） | **生成回复**（短、可复制）。中间**默认不**走 `chat-analysis.md` |
+
+建议 **`@goutou-junshi` + 截图**，保证先 1 后 2。
 
 只 `@qingsheng` 发截图时：**情圣**会分析/话术，但**不保证**写入 `GOUTOU_DATA_DIR`（除非 Agent 自己记得改文件）。要**稳定落盘**，请 `@goutou-junshi` 或先说「入库」。
 

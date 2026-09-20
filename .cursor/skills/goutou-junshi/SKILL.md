@@ -1,6 +1,6 @@
 ---
 name: goutou-junshi
-description: 狗头军师——恋爱与关系总参谋（咱们自研入口）。分析聊天、推进关系、止损与档案。用户发送聊天截图、粘贴记录、提到狗头军师、代号对象、要不要继续追、怎么回消息时使用。截图须先按 screenshot-ingest 落盘再分析。有具体聊天/回复需求时联动同项目的 qingsheng skill；止损与硬价值场景加载 references/howto 片段。
+description: 狗头军师——恋爱与关系总参谋（咱们自研入口）。用户发送聊天截图时：必须先 screenshot-ingest 落盘 jsonl，再调用 qingsheng 生成回复。其他场景：分析聊天、档案、止损；有回复需求联动 qingsheng；止损与硬价值场景加载 references/howto 片段。
 ---
 
 # 狗头军师（总入口）
@@ -28,7 +28,7 @@ description: 狗头军师——恋爱与关系总参谋（咱们自研入口）�
 
 | 场景 | 动作 |
 |------|------|
-| **聊天截图**（含只发图不说话） | **①** `references/howto/screenshot-ingest.md` 识图→`normalized.jsonl`→`sync-data-repo.sh`；**②** `chat-analysis.md`；**③** `qingsheng` 出话术。 |
+| **聊天截图**（含只发图不说话） | **严格两步、中间不插 chat-analysis**：**①** `screenshot-ingest.md`（识图、时间节点、`me/them`、图/表情包简述→ jsonl→ `sync-data-repo.sh`）；**②** 读取并遵循 **`.cursor/skills/qingsheng/SKILL.md`** 生成回复。上下文：`meta`/`state`/刚写入的 jsonl。仅当 `stoploss_level >= 2` 或用户明确要「深度分析」时再先插 `damage-control.md` 或 `chat-analysis.md`。 |
 | 粘贴文字 / 「帮我看这段」「分析对话」（无新截图） | **先** `chat-analysis.md`；**再** `qingsheng`。若用户要求入库，按 `screenshot-ingest.md` 把文字 append 到 jsonl（`source.type: paste`）。 |
 | 「怎么回」「推进」「展示面」「挽回」「自动规划」（无完整分析需求） | 读取并遵循 **`.cursor/skills/qingsheng/SKILL.md`**（可 `@qingsheng`）。把 `meta`/`state`/最近聊天作为上下文喂给情圣流程。 |
 | 止损、没戏、越聊越冷、纠缠、**该不该放弃**；或 `stoploss_level >= 2` | **先**读 `references/howto/damage-control.md`，结论优先于撩拨话术；再视情况用情圣给「体面收尾一句」 |
@@ -42,6 +42,13 @@ description: 狗头军师——恋爱与关系总参谋（咱们自研入口）�
 howto 片段说明见 `references/howto/README.md`（来自 HowToGetAlongWithGirls，**非**完整 dating-coach Skill）。
 
 ## 输出习惯
+
+**聊天截图**（两步流）：
+
+1. 先完成落盘：对用户**一句话**说明追加了几条、对象代号（勿长文分析）。  
+2. 紧接着按 **情圣** 节奏给回复（短、可复制，1–3 条），不要先甩一整篇 chat-analysis 报告。
+
+**其他场景**：
 
 1. 阶段 + 证据（简短）  
 2. 若未触发止损：2–3 条可复制回复（走情圣）  
