@@ -25,6 +25,11 @@ SSH 推私有仓失败时，让用户对照 [docs/github-ssh-horan-ding.md](docs
 - 退出码 `0`：已同步或无变更。
 - 退出码 `2`：合并冲突 → 按 [docs/data-repo-ai-sync.md](docs/data-repo-ai-sync.md) 合成 `normalized.jsonl` / `state.yaml` 等，**禁止** `git push --force`，完成后再次 `sync-data-repo.sh`。
 
+## 用户发聊天截图
+
+1. 走 `goutou-junshi` → `.cursor/skills/goutou-junshi/references/howto/screenshot-ingest.md`（落盘 jsonl + sync）。
+2. 再 `chat-analysis.md` + `qingsheng` 分析与话术。详见 [docs/skill-routing.md](docs/skill-routing.md)。
+
 ## Skill 入口
 
 分析具体对象：`@goutou-junshi`（数据根目录规则见 `.cursor/skills/goutou-junshi/SKILL.md`）。
