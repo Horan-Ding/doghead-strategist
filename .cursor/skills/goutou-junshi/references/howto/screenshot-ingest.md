@@ -28,6 +28,16 @@
 
 路径：`$GOUTOU_DATA_DIR/people/<codename>/conversations/normalized.jsonl`
 
+**先读已有文件再 append**（用户常把同一张截图发给不同模型/多轮对话；**已有则不加**）。
+
+1. 读入当前 `normalized.jsonl` 全量（或至少最近 500 行 + 与截图时段重叠的区间）。
+2. 对每条拟写入记录做去重，**任一命中则跳过**：
+   - 相同 `id`；
+   - 相同 `from` + 规范化 `text`（strip、连续空白压成单空格；sticker/image 用 `kind`+摘要）+ 相同 `ts`（秒级一致）；
+   - **宽松**：相同 `from` + 规范化 `text`，且 `ts` 在同一分钟内（不同 Agent 估时间差几秒的重复截图）；
+   - **禁止**因换 `import_id` 或换模型再写一条同内容。
+3. 仅追加通过去重的新行；`added=0` 时仍可对用户说「已在库，未重复写入」，然后照常走情圣回复（若用户要话术）。
+
 遵守 `schemas/message-line.schema.json`：
 
 ```json
@@ -35,7 +45,7 @@
 ```
 
 - `from` 仅 `me` | `them` | `system`。
-- 去重：已有相同 `ts`+`from`+`text` 或同 `id` 则跳过。
+- 去重：见上文 **§2 先读再写**；行内 `id` 建议用内容 hash，便于跨次导入一致。
 
 ## 3. 原图（可选）
 
@@ -56,7 +66,7 @@
 ## 对用户回复格式
 
 ```text
-已入库：<codename> +N 条（sync 完成）。
+已入库：<codename> +N 条（sync 完成）。N=0 时写：已在库，未重复追加。
 ---
 （下面直接接情圣式回复，2–3 条可复制话术）
 ```
