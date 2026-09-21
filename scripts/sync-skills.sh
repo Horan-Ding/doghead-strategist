@@ -1,26 +1,14 @@
 #!/usr/bin/env bash
-# Refresh vendored qingsheng + partial HowTo references. Requires network.
+# Download upstream candidates for review; preserve locally adapted skills.
 set -euo pipefail
-ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-TMP="${TMPDIR:-/tmp}/doghead-skills-sync"
-rm -rf "$TMP"
-mkdir -p "$TMP"
 
-echo "==> tomwong001/qingsheng-skill"
-git clone --depth 1 https://github.com/tomwong001/qingsheng-skill.git "$TMP/qingsheng"
-rm -rf "$ROOT/.cursor/skills/qingsheng"
-cp -R "$TMP/qingsheng/skill" "$ROOT/.cursor/skills/qingsheng"
-cp "$TMP/qingsheng/VERSION" "$ROOT/.cursor/skills/qingsheng/VERSION"
+STAGING_DIR="$(mktemp -d "${TMPDIR:-/tmp}/doghead-skills-sync.XXXXXX")"
+git clone --depth 1 https://github.com/tomwong001/qingsheng-skill.git "$STAGING_DIR/qingsheng"
+git clone --depth 1 https://github.com/Mayuqi-crypto/HowToGetAlongWithGirls.git "$STAGING_DIR/howto"
 
-echo "==> HowTo partial references"
-git clone --depth 1 https://github.com/Mayuqi-crypto/HowToGetAlongWithGirls.git "$TMP/howto"
-HOWTO_REF="$TMP/howto/.claude/skills/dating-coach/references"
-DEST="$ROOT/.cursor/skills/goutou-junshi/references/howto"
-mkdir -p "$DEST"
-for f in chat-analysis.md damage-control.md hard-value-reality.md self-diagnosis.md signal-patterns.md realistic-scenarios.md lifecycle.md profile-template.md; do
-  cp "$HOWTO_REF/$f" "$DEST/"
-done
-# Keep our README attribution
-test -f "$DEST/README.md" || echo "missing README.md"
-
-echo "Done. Review git diff before commit."
+test -f "$STAGING_DIR/qingsheng/skill/SKILL.md"
+test -d "$STAGING_DIR/howto/.claude/skills/dating-coach/references"
+printf 'Upstream candidates downloaded to: %s\n' "$STAGING_DIR"
+printf 'Compare qingsheng with: %s\n' "$STAGING_DIR/qingsheng/skill"
+printf 'Compare howto with: %s\n' "$STAGING_DIR/howto/.claude/skills/dating-coach/references"
+printf '%s\n' 'Local skills were not overwritten. Merge selected changes using .cursor/skills/qingsheng/qingsheng-upgrade.md.'

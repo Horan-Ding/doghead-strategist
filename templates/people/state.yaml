@@ -7,7 +7,7 @@ metrics:
   neediness_risk: 50
   last_initiative: unknown
 timeline:
-  last_contact: null
+  # 知道真实联系日期后再添加 last_contact: YYYY-MM-DD
   next_suggested_action: ""
 open_threads: []
 flags:

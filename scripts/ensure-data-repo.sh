@@ -11,7 +11,7 @@ if [[ -f "$ROOT/.env" ]]; then
 fi
 
 REPO_URL="${GOUTOU_DATA_REPO_URL:-}"
-DATA_DIR="${GOUTOU_DATA_DIR:-$HOME/code/haoran/goutou-data}"
+DATA_DIR="${GOUTOU_DATA_DIR:-$ROOT/data}"
 
 if [[ -z "$REPO_URL" ]]; then
   echo "Set GOUTOU_DATA_REPO_URL in $ROOT/.env (see .env.example)."

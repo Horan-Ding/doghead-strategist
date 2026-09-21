@@ -5,6 +5,12 @@ goals:
 strengths: []
 growth_areas: []
 platforms: [wechat]
+# 只记录用户明确偏好或真实已发送消息的特征，不用 AI 草稿冒充样本。
+communication_style:
+  tone: ""
+  emoji: ""
+  preferred_examples: []
+  avoid: []
 privacy:
   allow_store_raw_exports: true
   redact_before_cloud_paste: true
