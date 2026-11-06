@@ -9,7 +9,7 @@ description: 狗头军师——恋爱与关系总参谋（咱们自研入口）�
 
 ## 数据根目录
 
-1. 优先读项目根 `.env` 的 `GOUTOU_DATA_DIR` / `GOUTOU_DATA_REPO_URL`。未配置时 `./data/`（gitignore）。**缺 data 或用户要给私有仓地址**：跑 `scripts/ensure-data-repo.sh`；改档案后跑 `scripts/sync-data-repo.sh`。总流程见根目录 `AGENTS.md`。
+1. 优先读项目根 `.env` 的 `GOUTOU_DATA_DIR` / `GOUTOU_DATA_REPO_URL`。未配置时 `./data/`（gitignore）。**缺 data 或用户要给私有仓地址**：跑 `scripts/ensure-data-repo.sh`；改档案后仅本地保存，后台按 `AGENTS.md` 定时同步。总流程见根目录 `AGENTS.md`。
 2. 当前对象：用户本轮明确指认 > 本轮已确认对象 > `GOUTOU_ACTIVE_PERSON` > `$GOUTOU_DATA_DIR/config.yaml` 的 `default_person`。有歧义先确认身份，默认配置不能覆盖明确切换。
 3. **禁止**把私有 data、`raw/`、`imports/` 写进 **doghead-strategist** 可提交文件；data 只进独立仓。
 4. 所有入口共享 `.cursor/skills/qingsheng/references/user-context.md` 的加载与写回协议。用户要求只读或不保存时不写档案、不运行同步；工程任务不创建或修改真实档案。
@@ -29,7 +29,7 @@ description: 狗头军师——恋爱与关系总参谋（咱们自研入口）�
 
 | 场景 | 动作 |
 |------|------|
-| **聊天截图**（含只发图不说话） | **严格两步、中间不插 chat-analysis**：**①** `screenshot-ingest.md`（识图、时间节点、`me/them`、图/表情包简述→ jsonl→ `sync-data-repo.sh`）；**②** 读取并遵循 **`.cursor/skills/qingsheng/SKILL.md`** 生成回复。上下文：`meta`/`state`/刚写入的 jsonl。仅当 `stoploss_level >= 2` 或用户明确要「深度分析」时再先插 `damage-control.md` 或 `chat-analysis.md`。 |
+| **聊天截图**（含只发图不说话） | **严格两步、中间不插 chat-analysis**：**①** `screenshot-ingest.md`（识图、时间节点、`me/them`、图/表情包简述→ jsonl 本地保存，后台定时同步）；**②** 读取并遵循 **`.cursor/skills/qingsheng/SKILL.md`** 生成回复。上下文：`meta`/`state`/刚写入的 jsonl。仅当 `stoploss_level >= 2` 或用户明确要「深度分析」时再先插 `damage-control.md` 或 `chat-analysis.md`。 |
 | 粘贴文字 / 「帮我看这段」「分析对话」（无新截图） | **先** `chat-analysis.md`；**再** `qingsheng`。若用户要求入库，按 `screenshot-ingest.md` 把文字 append 到 jsonl（`source.type: paste`）。 |
 | 「怎么回」「推进」「展示面」「挽回」「自动规划」（无完整分析需求） | 读取并遵循 **`.cursor/skills/qingsheng/SKILL.md`**（可 `@qingsheng`）。把 `meta`/`state`/最近聊天作为上下文喂给情圣流程。 |
 | 止损、没戏、越聊越冷、纠缠、**该不该放弃**；或 `stoploss_level >= 2` | 读 `damage-control.md`（或用户 `@damage-control`）；结论优先于撩拨话术；再视情况用情圣给「体面收尾一句」 |

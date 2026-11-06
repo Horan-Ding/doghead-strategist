@@ -8,7 +8,8 @@
 
 ```bash
 cp .env.example .env
-./scripts/ensure-data-repo.sh   # clone 私有 goutou-data；仅玩示例可改用 init-local-data.sh
+./scripts/ensure-data-repo.sh   # 缺仓时 clone；已有仓只初始化，不自动拉取
+./scripts/auto-sync-data-repo.sh start  # Linux：后台每 10 分钟同步
 ```
 
 **Cursor Agent**：换机或 `git pull` 后读 [AGENTS.md](AGENTS.md)，会自动拉私有 data 仓。
@@ -22,6 +23,8 @@ cp .env.example .env
 HowTo 片段在 `goutou-junshi/references/howto/`（含 `damage-control.md`）；路由见 [docs/skill-routing.md](docs/skill-routing.md)。
 
 分析具体对象时请指明代号（如 `demo-alice`），或设置 `GOUTOU_ACTIVE_PERSON`。
+
+每次咨询只保存本地档案，回复不等待 GitHub；后台定时同步。`auto-sync-data-repo.sh status` 查看状态，`stop` 停止；需要立即同步时运行 `sync-data-repo.sh`。
 
 ## 本机数据布局（`data/`，不进 Git）
 

@@ -16,12 +16,12 @@ Cursor **不会**自动跑脚本；是靠 **Skill 描述 + 路由表** 让 Agent
 
 | 顺序 | Skill / 文档 | 做什么 |
 |------|----------------|--------|
-| 1 | `goutou-junshi` → `screenshot-ingest.md` | 识图、大概时间、`me/them`；文字/图/表情包简述 → `normalized.jsonl` → `sync-data-repo.sh` |
+| 1 | `goutou-junshi` → `screenshot-ingest.md` | 识图、大概时间、`me/them`；文字/图/表情包简述 → `normalized.jsonl` 本地保存，后台定时同步 |
 | 2 | **`qingsheng`**（读 `SKILL.md`） | **生成回复**（短、可复制）。中间**默认不**走 `chat-analysis.md` |
 
 建议 **`@goutou-junshi` + 截图**，保证先 1 后 2。
 
-直接 `@qingsheng` 发截图也执行同一个 `screenshot-ingest.md`；总入口已完成入库时不重复追加。用户明确只读或不保存时跳过写入与同步，仍可给建议。执行依赖 Agent，只有实际写入和同步完成才宣称成功。
+直接 `@qingsheng` 发截图也执行同一个 `screenshot-ingest.md`；总入口已完成入库时不重复追加。用户明确只读或不保存时跳过写入与同步，仍可给建议。执行依赖 Agent，分别报告本地保存与远端同步状态；不等待每次 push 才给建议。
 
 **改之前（未强调 ingest）**：截图只在对话里被模型「看见」，一般**不会**自动写 jsonl——除非当次 Agent 手动更新了 `state.yaml` 等。
 

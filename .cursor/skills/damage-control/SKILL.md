@@ -14,7 +14,7 @@ description: 止损参谋——还有没有戏、该不该放弃、越聊越冷�
 1. `GOUTOU_DATA_DIR`（见项目 `.env`）；缺则 `scripts/ensure-data-repo.sh`。
 2. 按 `.cursor/skills/qingsheng/references/user-context.md` 识别对象：用户本轮明确指认 > 本轮已确认对象 > `GOUTOU_ACTIVE_PERSON` > `config.yaml.default_person`。不另建全局档案。
 3. 必读：`people/<codename>/meta.yaml`、`state.yaml`、近期 `conversations/normalized.jsonl`（若有）。
-4. 有新增事实或判断变化时按统一协议更新 `state.yaml`：`flags.stoploss_level`（0–3）、`timeline.next_suggested_action`、依据与不确定点；不编造指标分数。修改后运行 `scripts/sync-data-repo.sh`。用户要求只读或不保存时不写、不同步。
+4. 有新增事实或判断变化时按统一协议更新 `state.yaml`：`flags.stoploss_level`（0–3）、`timeline.next_suggested_action`、依据与不确定点；不编造指标分数。修改后仅本地保存，等待后台定时同步。用户要求只读或不保存时不写、不同步。
 
 ## 与情圣 / 狗头分工
 

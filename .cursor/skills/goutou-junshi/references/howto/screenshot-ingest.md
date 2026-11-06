@@ -29,7 +29,7 @@
 
 路径：`$GOUTOU_DATA_DIR/people/<codename>/conversations/normalized.jsonl`
 
-**先读已有文件再 append**（用户常把同一张截图发给不同模型/多轮对话；**已有则不加**）。
+**按 `AGENTS.md` 的 `goutou-sync.lock` 对读取、去重、写入加锁；先读已有文件再 append**（用户常把同一张截图发给不同模型/多轮对话；**已有则不加**）。
 
 1. 读入当前 `normalized.jsonl` 全量（或至少最近 500 行 + 与截图时段重叠的区间）。
 2. 对每条拟写入记录做去重，**任一命中则跳过**：
@@ -52,11 +52,9 @@
 
 `raw/imports/<import_id>/page-1.png`，行内 `source.image` 写相对路径。
 
-## 4. 同步
+## 4. 本地保存完成
 
-```bash
-./scripts/sync-data-repo.sh
-```
+立即进入回复流程，不逐次运行 Git。后台默认每 10 分钟同步；用户明确要求立即同步时才运行 `./scripts/sync-data-repo.sh`。
 
 ## 5. 第 2 步（本 SOP 结束后立即做）
 
@@ -67,7 +65,7 @@
 ## 对用户回复格式
 
 ```text
-已入库：<codename> +N 条（sync 完成）。N=0 时写：已在库，未重复追加。
+已本地入库：<codename> +N 条（等待定时同步）。N=0 时写：已在库，未重复追加。
 ---
 （下面直接接情圣建议；适合回复时主推一句，也可以建议不发）
 ```

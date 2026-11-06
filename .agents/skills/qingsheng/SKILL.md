@@ -15,7 +15,7 @@ description: "帮助用户分析与具体对象的聊天、判断互动进展，
 
 - 先用用户本轮明确的对象，再用本轮已确认对象，最后才用 `GOUTOU_ACTIVE_PERSON` 或 `config.yaml.default_person`。无法唯一匹配时只问身份，不猜对象。
 - 已有档案就接着聊，不重复自我介绍或建档。新对象按项目模板建档；缺事实就留空，不补故事。
-- **聊天截图固定两步**：先执行 `.cursor/skills/goutou-junshi/references/howto/screenshot-ingest.md` 入库并同步，再生成回复。总入口已经入库时直接读取结果，不重复追加。默认不插入完整 `chat-analysis.md`。
+- **聊天截图固定两步**：先执行 `.cursor/skills/goutou-junshi/references/howto/screenshot-ingest.md` 本地入库后立即生成回复，远端同步由后台定时任务完成。总入口已经入库时直接读取结果，不重复追加。默认不插入完整 `chat-analysis.md`。
 - 用户要求只读、只给建议、不保存时遵守该边界；同步失败如实说明，使用已读到的上下文继续可完成的咨询，不宣称已同步。
 - 代码、Skill 修改和模型选型任务只处理工程问题，不创建或修改真实对象档案。
 
@@ -90,4 +90,4 @@ description: "帮助用户分析与具体对象的聊天、判断互动进展，
 
 ## 结束时记录
 
-有新增事实、用户明确反馈或需要保存的建议时，按档案协议写回 `GOUTOU_DATA_DIR` 并运行 `scripts/sync-data-repo.sh`。建议记录要标记「未确认执行」；只读任务不写。只根据实际结果告知入库、更新和同步状态。
+有新增事实、用户明确反馈或需要保存的建议时，按档案协议写回 `GOUTOU_DATA_DIR`，等待后台定时同步（用户明确要求立即同步时才运行 `scripts/sync-data-repo.sh`）。建议记录要标记「未确认执行」；只读任务不写。只根据实际结果告知入库、更新和同步状态。

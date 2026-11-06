@@ -7,7 +7,7 @@
 | 内容 | 放哪 | 同步方式 |
 |------|------|----------|
 | `doghead-strategist` 代码 | 任意目录 `git clone` | GitHub（可 public） |
-| 狗头军师私有 data | **`GOUTOU_DATA_DIR` → 独立 private Git 仓** | `./scripts/sync-data-repo.sh` + 可选 AI 处理冲突 |
+| 狗头军师私有 data | **`GOUTOU_DATA_DIR` → 独立 private Git 仓** | 本地保存 + 每 10 分钟后台同步（可手动立即同步） |
 
 **首选**：独立 data 仓（例如 `Horan-Ding/goutou-data`）——搭建与 AI 定时同步见 [data-repo-ai-sync.md](data-repo-ai-sync.md)。
 

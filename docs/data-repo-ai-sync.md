@@ -1,58 +1,48 @@
-# 独立 data 仓 + AI 定时同步
+# 单实例：本地保存 + 定时同步
 
-`GOUTOU_DATA_DIR` 指向 **单独 private Git 仓库** 的根目录（不是 `doghead-strategist` 里的 `./data/`）。
+真实档案放在独立私有 Git 仓 `GOUTOU_DATA_DIR`。每次咨询只写本地文件，后台默认每 10 分钟合并提交并同步 GitHub；不用每次对话都等待 push。
 
-## 一次性搭建
+## 初始化与启动（Linux）
 
-1. GitHub **Private** 仓：`Horan-Ding/goutou-data`（已创建）。
-2. 在 `doghead-strategist` 根目录：
+依赖 Bash、Git、`flock`（util-linux）。配置 `.env` 的 `GOUTOU_DATA_DIR` 和 `GOUTOU_DATA_REPO_URL`，云环境使用已有 HTTPS Git 认证。缺仓时执行 `./scripts/ensure-data-repo.sh`；已有仓不自动 pull。
 
 ```bash
-cp .env.example .env
-# 按需改 GOUTOU_DATA_DIR 路径
-./scripts/ensure-data-repo.sh
+./scripts/auto-sync-data-repo.sh start
+./scripts/auto-sync-data-repo.sh status
+./scripts/auto-sync-data-repo.sh stop
 ```
 
-等价于 clone + `init-local-data.sh`。Horan-Ding 专用 SSH 见 [github-ssh-horan-ding.md](github-ssh-horan-ding.md)；URL 也可用 `git@github.com:Horan-Ding/goutou-data.git`（走本机默认 `github.com` Host）。
+重复启动不会创建第二个任务。首次同步也等待一个周期。修改 `.env` 中 `GOUTOU_SYNC_INTERVAL_SECONDS=600` 后 stop，等 status 显示 Stopped，再 start。
 
-首次若要把旧 `./data/` 迁入私有仓，在 clone 后：
+后台任务只在机器运行时生效；环境休眠、停止或重建后要重新 start，不能承诺离线期间定时备份。进程在停止时会等待正在进行的一次同步结束。
+
+日志在代码仓已忽略的 `.goutou/auto-sync/log`，最近结果在 `last-result`。日志超过约 1 MiB 后保留末尾约 512 KiB 到 `log.previous` 并清空当前日志。启动成功不等于同步成功，须检查最近结果。不要提交这些运行文件。
+
+## 本地写入与同步互斥
+
+Agent 写档案时，把实际读取、去重、写回放在同一个短暂的锁内。例如 `.env` 已加载时：
 
 ```bash
-rsync -a --exclude 'conversations/raw' ./data/ "$GOUTOU_DATA_DIR/"
+flock "$(git -C "$GOUTOU_DATA_DIR" rev-parse --git-path goutou-sync.lock)" python3 your_local_writer.py
+```
+
+这里的 writer 是实际写入命令，不是仓库提供的脚本。锁内不等待模型生成或进行网络调用。同步脚本使用同一把锁；有写入进行时跳过本轮，下周期重试。
+
+## 单次同步与失败处理
+
+用户明确要求立即同步，或退出前希望确认备份时：
+
+```bash
 ./scripts/sync-data-repo.sh
 ```
 
-3. `.env` 中保留 **`GOUTOU_DATA_REPO_URL`**，方便换机后 Agent 自动 clone（见根目录 [AGENTS.md](../AGENTS.md)）。
+流程：锁定 → 检查冲突状态 → 本地变更 commit → fetch → rebase → 有待推送提交时 push。
 
-4. 若已有 `doghead-strategist/data/` 里的真实档案，**复制内容**到 `goutou-data/` 对应路径后 `git add` 首次提交（不要提交 `conversations/raw/`）。
+- 无本地变更时仍检查远端，也会补推之前失败留下的提交。
+- 网络失败不 stash，本地成果保留在提交中；下一周期重试。
+- 同步退出码：`0` 成功，`1` 失败，`2` 有待处理的 merge/rebase，`75` 忙碌稍后重试。
+- 有冲突时后台不会自动改档案或强推。先 stop，人工核对双方内容并完成或撤销 rebase，再 start。消息保留真实记录并去重；状态依证据判断，不机械取更高风险等级。
+- 默认同步本地当前分支同名的 origin 分支。若云平台生成 `work` 分支，可明确配置 `GOUTOU_DATA_BRANCH=main`；不要自动重命名、reset 或丢弃改动。
+- 新建远端分支不由定时任务负责；先明确目标并初始化。未配置 origin 时只完成本地提交，返回失败而非宣称远端已同步。
 
-## 日常：脚本同步
-
-```bash
-./scripts/sync-data-repo.sh
-```
-
-流程：`stash`（如有未提交改动）→ `pull --rebase` → `stash pop` → 有变更则 commit → `push`。冲突时 **退出码 2**，不 force push。
-
-## 定时 + AI 合成（推荐分工）
-
-| 步骤 | 谁做 |
-|------|------|
-| 定时触发（cron / Cursor `/loop` / 云 Agent） | 机器 |
-| 无冲突的 pull / commit / push | `sync-data-repo.sh` |
-| `normalized.jsonl` 冲突 | AI：按时间排序、按 `id` 或整行去重，**追加为主** |
-| `state.yaml` 冲突 | AI：合并 `metrics`、`timeline` 条目；`stoploss_level` 取较高或带 `updated_at` 的字段 |
-| `meta.yaml` 冲突 | AI：少改；冲突时保留两边事实，标 `notes` 待人工扫一眼 |
-
-给 Agent 的固定提示（可贴进 automation）：
-
-```text
-在 GOUTOU_DATA_DIR 仓库执行 doghead-strategist/scripts/sync-data-repo.sh。
-若退出码 2：仅解决冲突文件，遵守 docs/data-repo-ai-sync.md 的 jsonl/yaml 规则，
-完成后 git rebase --continue 或完成 merge，再重新运行 sync-data-repo.sh。
-禁止 git push --force。禁止添加图片或 conversations/raw/。
-```
-
-## 多设备
-
-每台机器：clone `doghead-strategist` + clone `goutou-data`，同一 `GOUTOU_DATA_DIR`。先 pull 再让 Cursor 改 `state`/聊天，结束时跑 sync（或交给定时任务）。
+任务使用 `git add -A`，遵守数据仓 `.gitignore`；原图与原始导出应放 `conversations/raw/`，不要把其他私密文件随意放进可提交目录。只读咨询不写档案、不启动同步；已运行的后台任务仍可能同步之前保存的内容。若需要暂停后台，用 stop。

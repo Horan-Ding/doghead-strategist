@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Ensure GOUTOU_DATA_DIR exists as a clone of the private goutou-data repo; pull latest.
+# Ensure GOUTOU_DATA_DIR exists. Existing checkouts sync on the schedule.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -20,11 +20,8 @@ fi
 
 if [[ -d "$DATA_DIR/.git" ]]; then
   echo "Data repo present: $DATA_DIR"
-  branch="$(git -C "$DATA_DIR" rev-parse --abbrev-ref HEAD)"
-  git -C "$DATA_DIR" pull --rebase origin "$branch" || {
-    echo "Pull failed — resolve conflicts in $DATA_DIR or run sync after merge."
-    exit 2
-  }
+  # Existing data is used locally; explicit refresh uses sync-data-repo.sh.
+
 elif [[ -d "$DATA_DIR" ]] && [[ -n "$(ls -A "$DATA_DIR" 2>/dev/null || true)" ]]; then
   echo "Directory exists but is not a git repo: $DATA_DIR"
   echo "Move it aside, then re-run this script to clone."
